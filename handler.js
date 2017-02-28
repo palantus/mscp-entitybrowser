@@ -28,14 +28,20 @@ class Handler{
   async folder(path){
     path = this.cleanFolderPath(path)
     let folderId = this.folderPath2Id(path)
-    let folderRes = await this.meta.find(`id:${folderId}`, true)
-    if(folderRes.length > 0){
-      let folder = this.convertEntityToClient(folderRes[0])
-      folder.path = path
+    if(path == "/"){
+      let folder = {path: "/", title: "root"}
       folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true)).map((e) => this.convertEntityToClient(e))
       return folder
+    } else {
+      let folderRes = await this.meta.find(`id:${folderId}`, true)
+      if(folderRes.length > 0){
+        let folder = this.convertEntityToClient(folderRes[0])
+        folder.path = path
+        folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true)).map((e) => this.convertEntityToClient(e))
+        return folder
+      }
+      return null
     }
-    return null
   }
 
   async types(){
