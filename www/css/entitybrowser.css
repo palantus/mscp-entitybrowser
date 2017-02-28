@@ -1,0 +1,35 @@
+/* Toolbar */
+body,html{background-color: rgba(210, 210, 210, 1);}
+.toolbarbutton{position: relative;}
+.toolbarbutton .dropdownmenu{display: none;}
+.toolbarbutton.open .dropdownmenu{display: block;}
+
+.dropdownmenu{z-index: 2; color: white; position:absolute; background-color: gray; background-color: rgba(51, 51, 51, 0.9); box-shadow: 3px 3px 15px #888888; top: 20px; left: 0px; padding: 15px; border-radius: 0px 10px 10px 10px;}
+.dropdownmenu > input, .dropdownmenu > button, .dropdownmenu > label{margin-top: 5px; margin-bottom: 5px;}
+.dropdownmenu > * {width: 200px}
+.dropdownmenu > input {width: 192px;}
+.dropdownmenu > label {display: inline-block}
+.dropdownmenu .smallbutton{margin-right: 10px; cursor: pointer;}
+.dropdownmenu .smallbutton:hover{text-decoration: underline;}
+
+/* Generic styling */
+select{border: 1px solid #ccc; width: 120px; border-radius: 3px; overflow: hidden; background: #fafafa; padding: 3px;}
+input[type=text]{border: 1px solid #ccc; border-radius: 3px; overflow: hidden; background: #fafafa; padding:3px;}
+button {background: #575757; background-image: linear-gradient(to bottom, #575757, #000000); border-radius: 5px; text-shadow: 1px 1px 3px #666666; font-family: Arial; color: #ffffff; font-size: 15px; padding: 5px 10px 5px 10px; text-decoration: none; border: none; min-width: 70px; box-shadow: 0px 1px 3px #666666; outline: none;}
+button:enabled:hover {background: #000000; background-image: linear-gradient(to bottom, #000000, #000000); text-decoration: none; cursor: pointer;}
+button:disabled{background: #272727; color: gray;}
+
+span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
+li.folderitem{ height: 15px; padding: 3px;transition: background 0.2s linear; position: relative;}
+li.folderitem:hover, li.folderitem.selected{background-color: rgb(180, 180, 180);}
+li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block;}
+li.folderitem .itemactions{left: 200px; position: absolute;}
+li.folderitem .itemaction{ visibility: hidden;}
+li.folderitem .itemaction img{cursor:pointer;}
+li.folderitem:hover .itemaction, li.folderitem .itemaction.clicked, li.folderitem.selected .itemaction{visibility: visible; position:relative;}
+
+li.folderitem .itemaction .dropdownmenu{display: none;}
+li.folderitem .itemaction.clicked .dropdownmenu{display: block;}
+
+ul.foldercontent{list-style-type: none; padding-left: 5px;}
+ul.foldercontent .folderitem img{height: 15px; margin-right: 5px;}

@@ -1,0 +1,11 @@
+{
+	"name": "mscp-entitybrowser",
+	"version": "1.0.0",
+	"main" : "main.js",
+	"dependencies" : {
+    "mscp" : "*",
+    "node-uuid": "*",
+    "mscp-user": "*",
+    "mscp-accesstokens": "*"
+  }
+}

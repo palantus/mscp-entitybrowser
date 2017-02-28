@@ -1,0 +1,583 @@
+{
+  "name": "entitybrowser",
+  "serve": [
+    {
+      "name": "folder",
+      "title": "Get folder",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "path",
+          "title": "Path",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "types",
+      "title": "List types",
+      "description": "",
+      "returntype": "array",
+      "args": [],
+      "namespace": ""
+    },
+    {
+      "name": "search",
+      "title": "Search",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "query",
+          "title": "Query",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "fillMetadata",
+          "title": "Fill metadata",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "add",
+      "title": "Add",
+      "description": "",
+      "returntype": "string",
+      "args": [
+        {
+          "name": "path",
+          "title": "Path",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "title": "Type",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "title": "Title",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "uniqueIdentifier",
+          "title": "Identifier",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "properties",
+          "title": "Properties",
+          "type": "object",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "remove",
+      "title": "Remove",
+      "description": "",
+      "returntype": "boolean",
+      "args": [
+        {
+          "name": "path",
+          "title": "Path",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "tag",
+      "title": "Tag",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "tag",
+          "title": "Tag",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "setProperty",
+      "title": "Set property",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "property",
+          "title": "Property",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "title": "Value",
+          "type": "string",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": ""
+    },
+    {
+      "name": "createUser",
+      "title": "Create user",
+      "description": "",
+      "returntype": "boolean",
+      "namespace": "user",
+      "args": [
+        {
+          "name": "username",
+          "title": "Username",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "password",
+          "title": "Password",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "title": "Log in",
+      "description": "",
+      "returntype": "string",
+      "namespace": "user",
+      "args": [
+        {
+          "name": "username",
+          "title": "Username",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "password",
+          "title": "Password",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "isLoggedIn",
+      "title": "Am I logged in?",
+      "description": "",
+      "returntype": "boolean",
+      "namespace": "user",
+      "args": []
+    },
+    {
+      "name": "logout",
+      "title": "Log out",
+      "description": "",
+      "returntype": "boolean",
+      "namespace": "user",
+      "args": []
+    },
+    {
+      "name": "getEntityAccessToken",
+      "title": "Get access token",
+      "description": "",
+      "returntype": "string",
+      "namespace": "",
+      "args": [
+        {
+          "name": "id",
+          "title": "Entity Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "writeAccess",
+          "title": "Write access?",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "addTag",
+      "args": [
+        {
+          "name": "id",
+          "title": "",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "tag",
+          "title": "",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "returntype": "array",
+      "title": "Add Tag",
+      "namespace": "meta"
+    },
+    {
+      "name": "removeTag",
+      "args": [
+        {
+          "name": "id",
+          "title": "",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "tag",
+          "title": "",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "returntype": "array",
+      "title": "Remove tag from id",
+      "namespace": "meta"
+    },
+    {
+      "name": "getTags",
+      "args": [
+        {
+          "name": "id",
+          "title": "",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "returntype": "array",
+      "title": "Get tags by id",
+      "namespace": "meta"
+    },
+    {
+      "name": "listTags",
+      "args": [
+        {
+          "name": "prefix",
+          "title": "Tag prefix to search for",
+          "type": "string",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "description": "",
+      "returntype": "array",
+      "title": "List all tags",
+      "namespace": "meta"
+    },
+    {
+      "name": "getAllByTag",
+      "title": "Get all by tag",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "tag",
+          "title": "Tag",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "getAllByTags",
+      "title": "Get all by tags",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "tags",
+          "title": "Tags",
+          "type": "array",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "find",
+      "title": "Find",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "query",
+          "title": "Query",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "fillMetadata",
+          "title": "Fill metadata",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "getProperties",
+      "title": "Get properties",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "setProperty",
+      "title": "Set property",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "prop",
+          "title": "Property",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "title": "Value",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "setProperties",
+      "title": "Set properties",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "properties",
+          "title": "Properties",
+          "type": "object",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "getRelations",
+      "title": "Get relations",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "addRelation",
+      "title": "Add relation",
+      "description": "",
+      "returntype": "string",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "id2",
+          "title": "Id 2",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "rel",
+          "title": "Relation",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "bothWays",
+          "title": "Create both ways",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "removeRelation",
+      "title": "Remove relation",
+      "description": "",
+      "returntype": "string",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "id2",
+          "title": "Id 2",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "rel",
+          "title": "Relation",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "bothWays",
+          "title": "Delete both ways",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "fillMetadata",
+      "title": "Fill metadata",
+      "description": "",
+      "returntype": "object",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    },
+    {
+      "name": "fillMetadataMultiple",
+      "title": "Fill metadata (multiple)",
+      "description": "",
+      "returntype": "array",
+      "args": [
+        {
+          "name": "idList",
+          "title": "List of Id's",
+          "type": "array",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "namespace": "meta"
+    }
+  ]
+}
