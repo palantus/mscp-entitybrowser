@@ -87,6 +87,15 @@ class Handler{
     return true
   }
 
+  async move(id, fromPath, toPath){
+    if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
+    let toFolderId = this.folderPath2Id(toPath)
+    await this.remove(fromPath, id)
+    await this.meta.addRelation(toFolderId, id, "entity_folder_contains")
+    await this.meta.addRelation(id, toFolderId, "entity_infolder")
+    return true
+  }
+
   async tag(id, tag){
     if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
     await this.meta.addTag(id, `entity_utag_${tag}`)
@@ -122,7 +131,10 @@ class Handler{
   }
 
   cleanFolderPath(path){
-    return path.endsWith("/") ? path : (path + "/")
+    let ret = path;
+    ret = ret.endsWith("/") ? ret : (ret + "/")
+    ret = ret.startsWith("/") ? ret : ("/" + ret);
+    return ret;
   }
 
   convertEntityToClient(e){

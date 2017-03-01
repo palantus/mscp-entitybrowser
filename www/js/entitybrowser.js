@@ -150,6 +150,22 @@ class FolderView{
         itemActions.append(editAction)
       }
 
+      // MOVE BUTTON
+      let moveActionHTML = `<span class="itemaction" title="Move">
+                                <img src="/mscp/libs/img/forward.png"/>
+                                <span class="dropdownmenu">
+                                  <input name="dest" placeholder="Destination path" value="${this.path}"/>
+                                  <span class="smallbutton ok">Ok</span>
+                                  <span class="smallbutton cancel">Cancel</span>
+                                </span>
+                              </<span>`
+
+      let moveAction = $(moveActionHTML)
+      moveAction.find(".ok").click((e) => {this.itemMove($(e.target).parents(".folderitem").data("item"), $(e.target).parent().find("input[name=dest]").val()); e.stopPropagation();})
+      itemActions.append(moveAction)
+
+
+
       // SHARE BUTTON
       if(this.typeHandler.types[e.properties.type].allowShare){
         let shareActionHTML = `<span class="itemaction" title="Share">
@@ -224,6 +240,11 @@ class FolderView{
 
   async itemShare(item, writeAccess){
     return this.typeHandler.getShareableLink(item, writeAccess)
+  }
+
+  async itemMove(item, destPath){
+    await mscp.move(item.id, this.path, destPath)
+    this.refreshContent()
   }
 }
 

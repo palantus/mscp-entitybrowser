@@ -252,6 +252,36 @@
           "description": ""
         }
       ]
+    },
+    {
+      "name": "move",
+      "title": "Move",
+      "description": "",
+      "returntype": "boolean",
+      "namespace": "",
+      "args": [
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "fromPath",
+          "title": "Source path",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "toPath",
+          "title": "Destination path",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ]
     }
   ],
   "dependencies": [
