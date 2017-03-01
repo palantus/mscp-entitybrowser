@@ -1,5 +1,5 @@
 /* Toolbar */
-body,html{background-color: #eee;}
+body,html{background-color: #eee; font-family: Roboto,sans-serif; -webkit-font-smoothing: antialiased;}
 .toolbarbutton{position: relative;}
 .toolbarbutton .dropdownmenu{display: none;}
 .toolbarbutton.open .dropdownmenu{display: block;}
@@ -15,7 +15,7 @@ body,html{background-color: #eee;}
 /* Generic styling */
 select{border: 1px solid #ccc; width: 120px; border-radius: 3px; overflow: hidden; background: #fafafa; padding: 3px;}
 input[type=text]{border: 1px solid #ccc; border-radius: 3px; overflow: hidden; background: #fafafa; padding:3px;}
-button {background: #575757; background-image: linear-gradient(to bottom, #575757, #000000); border-radius: 5px; font-family: Arial; color: #ffffff; font-size: 15px; padding: 5px 10px 5px 10px; text-decoration: none; border: none; min-width: 70px; outline: none;}
+button {background: #575757; background-image: linear-gradient(to bottom, #575757, #000000); border-radius: 5px; font: 14px Roboto,sans-serif; color: #ffffff; font-size: 15px; padding: 5px 10px 5px 10px; text-decoration: none; border: none; min-width: 70px; outline: none;}
 button:enabled:hover {background: #000000; background-image: linear-gradient(to bottom, #000000, #000000); text-decoration: none; cursor: pointer;}
 button:disabled{background: #272727; color: gray;}
 

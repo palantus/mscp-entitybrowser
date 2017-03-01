@@ -69,6 +69,7 @@ class TypeHandler{
                     .replace("$id$", item.id)
                     .replace("$identifier$", item.properties.identifier || item.id)
                     .replace("$accesstoken$", accessToken)
+                    .replace("$title$", item.properties.title)
 
         return url;
     }
