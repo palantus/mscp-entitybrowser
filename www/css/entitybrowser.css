@@ -1,5 +1,5 @@
 /* Toolbar */
-body,html{background-color: rgba(210, 210, 210, 1);}
+body,html{background-color: #eee;}
 .toolbarbutton{position: relative;}
 .toolbarbutton .dropdownmenu{display: none;}
 .toolbarbutton.open .dropdownmenu{display: block;}
@@ -21,7 +21,7 @@ button:disabled{background: #272727; color: gray;}
 
 span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
 li.folderitem{ height: 15px; padding: 3px;transition: background 0.2s linear; position: relative;}
-li.folderitem:hover, li.folderitem.selected{background-color: rgb(180, 180, 180);}
+li.folderitem:hover, li.folderitem.selected{background-color: #ddd;}
 li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block;}
 li.folderitem .itemactions{left: 200px; position: absolute;}
 li.folderitem .itemaction{ visibility: hidden;}
