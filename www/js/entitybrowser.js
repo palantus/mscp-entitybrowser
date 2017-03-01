@@ -121,7 +121,7 @@ class FolderView{
       let itemActions = $(`<span class="itemactions"/>`)
 
       // DELETE BUTTON
-      let deleteActionHTML = `<span class="itemaction">
+      let deleteActionHTML = `<span class="itemaction" title="Remove">
                                 <img src="/mscp/libs/img/delete.png"/>
                                 <span class="confirm dropdownmenu">
                                   <div>Are you sure?</div>
@@ -136,7 +136,7 @@ class FolderView{
 
       // RENAME BUTTON
       if(e.properties.type != "folder"){
-        let editActionHTML = `<span class="itemaction">
+        let editActionHTML = `<span class="itemaction" title="Rename">
                                   <img src="/mscp/libs/img/edit.ico"/>
                                   <span class="dropdownmenu">
                                     <input name="title" placeholder="Title" value="${title}"/>
@@ -152,8 +152,8 @@ class FolderView{
 
       // SHARE BUTTON
       if(this.typeHandler.types[e.properties.type].allowShare){
-        let shareActionHTML = `<span class="itemaction">
-                                  <img src="/mscp/libs/img/customer.png"/>
+        let shareActionHTML = `<span class="itemaction" title="Share">
+                                  <img src="/mscp/libs/img/share.png"/>
                                   <span class="confirm dropdownmenu">
                                     <label><input type="checkbox" name="writeaccess"/>Write access</label>
                                     <input style="display: none;" type="text" name="generatedlink"/>
