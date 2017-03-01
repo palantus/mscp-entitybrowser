@@ -85,7 +85,8 @@ class FolderView{
   }
 
   async showFolder(path){
-
+    path = path.toLowerCase()
+    
     let folder = await mscp.folder(path)
     if(folder == null){
       alert("Unknown folder")
