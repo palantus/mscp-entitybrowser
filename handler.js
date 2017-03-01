@@ -89,6 +89,7 @@ class Handler{
 
   async move(id, fromPath, toPath){
     if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
+    if((await this.search(`id:${id} prop:type=folder`)).length > 0) throw "You cannot move folders"
     let toFolderId = this.folderPath2Id(toPath)
     await this.remove(fromPath, id)
     await this.meta.addRelation(toFolderId, id, "entity_folder_contains")
