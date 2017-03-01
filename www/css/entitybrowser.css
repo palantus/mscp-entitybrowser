@@ -4,7 +4,7 @@ body,html{background-color: #eee;}
 .toolbarbutton .dropdownmenu{display: none;}
 .toolbarbutton.open .dropdownmenu{display: block;}
 
-.dropdownmenu{z-index: 2; color: white; position:absolute; background-color: gray; background-color: rgba(51, 51, 51, 0.9); box-shadow: 3px 3px 15px #888888; top: 20px; left: 0px; padding: 15px; border-radius: 0px 10px 10px 10px;}
+.dropdownmenu{z-index: 2; color: white; position:absolute; background-color: gray; background-color: rgba(51, 51, 51, 0.9); box-shadow: 3px 3px 15px #888888; left: 0px; padding: 15px; border-radius: 0px 10px 10px 10px;}
 .dropdownmenu > input, .dropdownmenu > button, .dropdownmenu > label{margin-top: 5px; margin-bottom: 5px;}
 .dropdownmenu > * {width: 200px}
 .dropdownmenu > input {width: 192px;}
