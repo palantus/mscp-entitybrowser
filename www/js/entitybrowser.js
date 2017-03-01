@@ -85,15 +85,13 @@ class FolderView{
   }
 
   async showFolder(path){
-    path = path.toLowerCase()
-    
     let folder = await mscp.folder(path)
     if(folder == null){
       alert("Unknown folder")
       return;
     }
 
-    this.path = path
+    this.path = folder.path
     this.element.find(".backbutton").prop("disabled",this.path == "/")
     this.element.find("span.folderpath").html(folder.path)
 
