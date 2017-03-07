@@ -15,8 +15,33 @@ class Entity{
 
   async run(){
     await mscp.ready;
-    this.types = await mscp.types()
-    this.addView(getUrlVar("folder") || "/")
+    let loggedIn = await mscp.user.isLoggedIn()
+    if(loggedIn){
+      $("#login").addClass("hidden")
+      $("#content").removeClass("hidden")
+      this.types = await mscp.types()
+      this.addView(getUrlVar("folder") || "/")
+    } else {
+        $("#login").removeClass("hidden")
+        $("#username").val(localStorage.entityUsername || "").focus()
+        if(localStorage.entityUsername){
+          setTimeout(()=>$("#password").focus(), 500)
+        } else {
+          setTimeout(()=>$("#username").focus(), 500)
+        }
+
+        $("#login input").keyup((e) => {if(e.keyCode == 13) $("#loginbutton").click()})
+
+        $("#loginbutton").click(async ()=>{
+          localStorage.entityUsername = $("#username").val()
+          if(await mscp.user.login($("#username").val(), $("#password").val())){
+            entity.run();
+          } else {
+            alert("Wrong username or password")
+          }
+        })
+    }
+    $("#loading").addClass("hidden")
   }
 
   addView(folder){

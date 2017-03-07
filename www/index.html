@@ -12,6 +12,7 @@
 	<link rel="apple-touch-icon" sizes="442x442" href="/mscp/libs/img/document.png" />
 
   <link rel="stylesheet" type="text/css" href="/css/entitybrowser.css" />
+  <link rel="stylesheet" type="text/css" href="/css/loader.css" />
 
 	<script src="/mscp/libs/js/jquery.min.js"></script>
 	<script src="/mscp/js/browser.js"></script>
@@ -20,8 +21,19 @@
 </head>
 <body>
 <div id="content-wrapper">
-  <div id="content">
+  <div id="loading">
+    <div>
+      <div class="loader"></div>
+    </div>
   </div>
+  <div id="login" class="hidden">
+    <div>
+      <input id="username" type="text" placeholder="Username"/>
+      <input id="password" type="password" placeholder="Password"/>
+      <button id="loginbutton">Go</button>
+    </div>
+  </div>
+  <div id="content" class="hidden"></div>
 </div>
 </body>
 </html>
