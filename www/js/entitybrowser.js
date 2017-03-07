@@ -135,7 +135,9 @@ class FolderView{
       let folderItem = $("<li/>", {class: "folderitem"})
 
       let title = e.properties.title || e.id
-      folderItem.append($("<img/>", {src: this.typeHandler.types[e.properties.type].icon || "/mscp/libs/img/help.png"}))
+      let icon = $("<img/>", {src: this.typeHandler.types[e.properties.type].icon || "/mscp/libs/img/help.png"})
+      icon.click((e) => {$(e.target).parent().find(".itemname").click(); e.stopPropagation();});
+      folderItem.append(icon)
       $("<span/>", {class: "itemname", html: title}).appendTo(folderItem).click((e) => {this.itemClicked($(e.target).parent(), e); e.stopPropagation();})
       folderItem.data("item", e)
       folderItem.click((e) => {

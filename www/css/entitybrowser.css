@@ -36,7 +36,7 @@ button:disabled{background: #272727; color: gray;}
 span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
 li.folderitem{ height: 15px; padding: 3px;transition: background 0.2s linear; position: relative; user-select: none; cursor: pointer;}
 li.folderitem:hover, li.folderitem.selected{background-color: #ddd;}
-li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block;}
+li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block; position: absolute; top: 0px; padding-top: 2px; padding-right: 5px;}
 li.folderitem .itemactions{left: 200px; position: absolute; background-color: inherit; padding-left: 10px; padding-right: 10px;}
 li.folderitem .itemaction{ visibility: hidden;}
 li.folderitem .itemaction img{cursor:pointer;}
@@ -46,4 +46,4 @@ li.folderitem .itemaction .dropdownmenu{display: none;}
 li.folderitem .itemaction.clicked .dropdownmenu{display: block;}
 
 ul.foldercontent{list-style-type: none; padding-left: 5px;}
-ul.foldercontent .folderitem img{height: 15px; margin-right: 5px;}
+ul.foldercontent .folderitem img{height: 15px; padding-right: 5px;}
