@@ -15,7 +15,7 @@ body,html{background-color: #eee; font-family: Roboto,sans-serif; -webkit-font-s
 
 
 /* Toolbar */
-div.toolbar{background-color: #222; padding: 5px; box-shadow: 0px 5px 14px 0px #888888}
+div.toolbar{background-color: #eee; padding: 5px; /*box-shadow: 0px 5px 14px 0px #888888*/}
 div.toolbar .toolbarbutton{position: relative;}
 div.toolbar .toolbarbutton .dropdownmenu{display: none;}
 div.toolbar .toolbarbutton.open .dropdownmenu{display: block;}
@@ -32,9 +32,14 @@ div.toolbar .toolbarbutton.open > button{box-shadow: inset 1px 1px 11px 0px #7b7
 /* Generic styling */
 select{border: 1px solid #ccc; width: 120px; border-radius: 3px; overflow: hidden; background: #fafafa; padding: 3px;}
 input[type=text],input[type=password]{border: 1px solid #ccc; border-radius: 3px; overflow: hidden; background: #fafafa; padding:3px;}
+/*
 button {background: #eee; background-image: linear-gradient(to bottom, #eee, #ddd); border-radius: 7px; font: 14px Roboto,sans-serif; color: #000; font-size: 15px; padding: 3px 10px 3px 10px; text-decoration: none; border: none; min-width: 70px; outline: none; box-shadow: 1px 1px 11px 0px #7b7b7b;}
 button:enabled:hover {background: #ccc; background-image: linear-gradient(to bottom, #ccc, #eee); text-decoration: none; cursor: pointer; }
 button:disabled{background: #ddd; color: gray;}
+*/
+button {background: #575757; background-image: linear-gradient(to bottom, #575757, #000000); border-radius: 5px; font: 14px Roboto,sans-serif; color: #ffffff; font-size: 15px; padding: 5px 10px 5px 10px; text-decoration: none; border: none; min-width: 70px; outline: none;}
+button:enabled:hover {background: #000000; background-image: linear-gradient(to bottom, #000000, #000000); text-decoration: none; cursor: pointer;}
+button:disabled{background: #272727; color: gray;}
 
 
 span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
@@ -56,6 +61,7 @@ ul.foldercontent .folderitem img{height: 15px; padding-right: 5px;}
 
 
 /* Properties */
-div.itempropertiescontainer{position: absolute; right: 0px; top: 0px; background-color: #222; color: white; min-width: 150px; display: none; opacity: 0.9; border-radius: 0px 0px 0px 5px;}
-div.itempropertiescontainer > p.header{padding: 2px 5px; border-bottom: 1px solid #eee; border-top: 1px solid #eee; margin: 0px 0px 5px 0px;}
+div.itempropertiescontainer{position: absolute; right: 0px; top: 0px; background-color: #222; color: white; min-width: 150px; display: none; opacity: 0.9; border-radius: 5px 0px 0px 5px; box-shadow: -1px 1px 13px 0px #5d5656;}
+div.itempropertiescontainer > p.header{padding: 3px 6px; border-bottom: 1px solid #eee; margin: 0px 0px 5px 0px;}
+div.itempropertiescontainer > p.header:not(:first-of-type){border-top: 1px solid #eee;}
 div.itempropertiescontainer > table{padding-left: 6px; margin-bottom: 5px;}
