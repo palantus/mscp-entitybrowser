@@ -40,7 +40,8 @@ class TypeHandler{
     identifierInput.val("")
   }
 
-  async openItem(item){
+  async openItem(item, e){
+    e = e || {}
     let type = this.types[item.properties.type]
     switch(type.open.type){
       case "url":
@@ -49,7 +50,9 @@ class TypeHandler{
         if(type.open.dest === "window"){
           let width = type.open.windowWidth || 520
           let height = type.open.windowHeight || 570
-          window.open(url, '_blank', `height=${height},width=${width},scrollbars=yes,status=yes`);
+          let left = Math.max(e.screenX - parseInt(width/2), 0)
+          let top = Math.max(e.screenY - parseInt(height/2), 0)
+          window.open(url, '_blank', `height=${height},width=${width},scrollbars=yes,status=no,left=${left},top=${top}`);
         } else
           window.open(url, '_blank');
         break;

@@ -109,7 +109,7 @@ class FolderView{
 
       let title = e.properties.title || e.id
       folderItem.append($("<img/>", {src: this.typeHandler.types[e.properties.type].icon || "/mscp/libs/img/help.png"}))
-      $("<span/>", {class: "itemname", html: title}).appendTo(folderItem).click((e) => {this.itemClicked($(e.target).parent()); e.stopPropagation();})
+      $("<span/>", {class: "itemname", html: title}).appendTo(folderItem).click((e) => {this.itemClicked($(e.target).parent(), e); e.stopPropagation();})
       folderItem.data("item", e)
       folderItem.click((e) => {
         let selected = $(e.currentTarget).is(".selected")
@@ -208,13 +208,13 @@ class FolderView{
     this.showFolder(this.path)
   }
 
-  itemClicked(itemElement){
+  itemClicked(itemElement, e){
     let item = itemElement.data("item")
 
     if(item.properties.type == "folder"){
       this.showFolder(this.path + item.properties.title)
     } else {
-      this.typeHandler.openItem(item)
+      this.typeHandler.openItem(item, e)
     }
   }
 
