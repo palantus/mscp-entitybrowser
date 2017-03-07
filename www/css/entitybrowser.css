@@ -37,7 +37,7 @@ span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
 li.folderitem{ height: 15px; padding: 3px;transition: background 0.2s linear; position: relative;}
 li.folderitem:hover, li.folderitem.selected{background-color: #ddd;}
 li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block;}
-li.folderitem .itemactions{left: 200px; position: absolute;}
+li.folderitem .itemactions{left: 200px; position: absolute; background-color: inherit; padding-left: 10px; padding-right: 10px;}
 li.folderitem .itemaction{ visibility: hidden;}
 li.folderitem .itemaction img{cursor:pointer;}
 li.folderitem:hover .itemaction, li.folderitem .itemaction.clicked, li.folderitem.selected .itemaction{visibility: visible; position:relative;}
