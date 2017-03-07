@@ -30,14 +30,14 @@ class Handler{
     let folderId = this.folderPath2Id(path)
     if(path == "/"){
       let folder = {path: "/", title: "root"}
-      folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true)).map((e) => this.convertEntityToClient(e))
+      folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true))
       return folder
     } else {
       let folderRes = await this.meta.find(`id:${folderId}`, true)
       if(folderRes.length > 0){
         let folder = this.convertEntityToClient(folderRes[0])
         folder.path = path
-        folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true)).map((e) => this.convertEntityToClient(e))
+        folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true))
         return folder
       }
       return null

@@ -66,33 +66,35 @@ class FolderView{
 
     let html = `
           <div class="folderview" id="${this.elementId}">
-            <button class="backbutton">Back</button>
-            <span class="toolbarbutton">
-              <button>Add new</button>
-              <span class="addnewcontainer dropdownmenu">
-                <select name="type" value="folder" size="${Object.keys(this.typeHandler.types).length}">${this.typeHandler.typesSelectValues}</select>
-                <input type="text" name="title" placeholder="Title"></input>
-                <div class="params"></div>
-                <button>Add</button>
+            <div class="toolbar">
+              <button class="backbutton">Back</button>
+              <span class="toolbarbutton">
+                <button>Add new</button>
+                <span class="addnewcontainer dropdownmenu">
+                  <select name="type" value="folder" size="${Object.keys(this.typeHandler.types).length}">${this.typeHandler.typesSelectValues}</select>
+                  <input type="text" name="title" placeholder="Title"></input>
+                  <div class="params"></div>
+                  <button>Add</button>
+                </span>
               </span>
-            </span>
-            <span class="toolbarbutton">
-              <button>Add existing</button>
-              <span class="addexistingcontainer dropdownmenu">
-                <select name="type" value="folder" size="${Object.keys(this.typeHandler.types).length-1}">${this.typeHandler.typesSelectValuesNoFolder}</select>
-                <input type="text" name="identifier" placeholder="Identifier"></input>
-                <input type="text" name="title" placeholder="Title"></input>
-                <div class="params"></div>
-                <button>Add</button>
+              <span class="toolbarbutton">
+                <button>Add existing</button>
+                <span class="addexistingcontainer dropdownmenu">
+                  <select name="type" value="folder" size="${Object.keys(this.typeHandler.types).length-1}">${this.typeHandler.typesSelectValuesNoFolder}</select>
+                  <input type="text" name="identifier" placeholder="Identifier"></input>
+                  <input type="text" name="title" placeholder="Title"></input>
+                  <div class="params"></div>
+                  <button>Add</button>
+                </span>
               </span>
-            </span>
 
-            <span class="folderpath"></span>
+              <span class="folderpath"></span>
+            </div>
             <div>
               <ul class="foldercontent">
               </ul>
+              <div class="itempropertiescontainer"></div>
             </div>
-            <div class="propertiescontainer"></div>
           </div>`
 
     this.element = $(html)
@@ -109,6 +111,8 @@ class FolderView{
     this.element.find("span.addnewcontainer button").click((e) => this.typeHandler.addNewExecute($(e.target)))
     this.element.find("span.addexistingcontainer input").keyup((e) => {if(e.keyCode == 13) this.element.find("span.addexistingcontainer button").click()})
     this.element.find("span.addexistingcontainer button").click((e) => this.typeHandler.addExistingExecute($(e.target)))
+
+    this.propertiesHandler = new PropertiesHandler(this);
   }
 
   async showFolder(path){
@@ -144,6 +148,7 @@ class FolderView{
         let selected = $(e.currentTarget).is(".selected")
         $(e.currentTarget).parents(".foldercontent").find(".folderitem").removeClass("selected");
         $(e.currentTarget).toggleClass("selected", !selected)
+        this.propertiesHandler.showProperties($(e.currentTarget).data("item"), !selected)
       })
 
       let itemActions = $(`<span class="itemactions"/>`)
