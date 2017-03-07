@@ -11,6 +11,12 @@ class Entity{
         $(".itemaction").removeClass("clicked")
       }
     });
+    $("html").click((e)=>{
+      if(e.target.nodeName == "HTML"){
+        $(".folderview .foldercontent .folderitem.selected").removeClass("selected");
+        $("div.itempropertiescontainer").hide();
+      }
+    })
   }
 
   async run(){
