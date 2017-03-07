@@ -105,7 +105,9 @@ class FolderView{
     })
     this.element.find("button.backbutton").click((e) => this.back($(e.target)))
     this.element.find("span.addnewcontainer typeselct").change((e) => this.typeHandler.addNewTypeChanged($(e.target)))
+    this.element.find("span.addnewcontainer input").keyup((e) => {if(e.keyCode == 13) this.element.find("span.addnewcontainer button").click()})
     this.element.find("span.addnewcontainer button").click((e) => this.typeHandler.addNewExecute($(e.target)))
+    this.element.find("span.addexistingcontainer input").keyup((e) => {if(e.keyCode == 13) this.element.find("span.addexistingcontainer button").click()})
     this.element.find("span.addexistingcontainer button").click((e) => this.typeHandler.addExistingExecute($(e.target)))
   }
 
