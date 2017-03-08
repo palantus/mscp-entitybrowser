@@ -56,7 +56,7 @@ li.folderitem:hover .itemaction, li.folderitem .itemaction.clicked, li.folderite
 li.folderitem .itemaction .dropdownmenu{display: none;}
 li.folderitem .itemaction.clicked .dropdownmenu{display: block;}
 
-ul.foldercontent{list-style-type: none; padding-left: 5px; padding-top: 10px; margin-top: 0px;}
+ul.foldercontent{list-style-type: none; padding-left: 10px; padding-top: 10px; margin-top: 0px;}
 ul.foldercontent .folderitem img{height: 15px; padding-right: 5px;}
 
 
