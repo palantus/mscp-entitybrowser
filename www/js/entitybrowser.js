@@ -151,6 +151,9 @@ class FolderView{
       $("<span/>", {class: "itemname", html: title}).appendTo(folderItem).click((e) => {this.itemClicked($(e.target).parent(), e); e.stopPropagation();})
       folderItem.data("item", e)
       folderItem.click((e) => {
+        if(!$(e.target).is(".folderitem"))
+          return;
+          
         let selected = $(e.currentTarget).is(".selected")
         $(e.currentTarget).parents(".foldercontent").find(".folderitem").removeClass("selected");
         $(e.currentTarget).toggleClass("selected", !selected)
@@ -210,6 +213,7 @@ class FolderView{
                                   <img src="/mscp/libs/img/share.png"/>
                                   <span class="confirm dropdownmenu">
                                     <label><input type="checkbox" name="writeaccess"/>Write access</label>
+                                    <label><input type="checkbox" name="permanentaccess"/>Permanent access</label>
                                     <input style="display: none;" type="text" name="generatedlink"/>
                                     <span class="smallbutton generate">Generate</span>
                                     <span class="smallbutton cancel">Close</span>
@@ -219,7 +223,8 @@ class FolderView{
         let shareAction = $(shareActionHTML)
         shareAction.find(".generate").click(async (e) => {
           let writeAccess = $(e.target).parents(".folderitem").find("input[name=writeaccess]").is(":checked")
-          $(e.target).parents(".folderitem").find("input[name=generatedlink]").val(await this.itemShare($(e.target).parents(".folderitem").data("item"), writeAccess)).show().focus().select();
+          let permanentAccess = $(e.target).parents(".folderitem").find("input[name=permanentaccess]").is(":checked")
+          $(e.target).parents(".folderitem").find("input[name=generatedlink]").val(await this.itemShare($(e.target).parents(".folderitem").data("item"), writeAccess, permanentAccess)).show().focus().select();
           e.stopPropagation();
         })
         itemActions.append(shareAction)
@@ -276,8 +281,8 @@ class FolderView{
     this.refreshContent()
   }
 
-  async itemShare(item, writeAccess){
-    return this.typeHandler.getShareableLink(item, writeAccess)
+  async itemShare(item, writeAccess, permanentAccess){
+    return this.typeHandler.getShareableLink(item, writeAccess, permanentAccess)
   }
 
   async itemMove(item, destPath){

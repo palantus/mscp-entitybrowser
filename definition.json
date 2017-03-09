@@ -250,6 +250,13 @@
           "type": "boolean",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "permanent",
+          "title": "Permanent access",
+          "type": "boolean",
+          "required": false,
+          "description": ""
         }
       ]
     },

@@ -122,9 +122,9 @@ class Handler{
     return this.global.userAccessPermissionCache[this.username][id]
   }
 
-  async getEntityAccessToken(id, writeAccess){
+  async getEntityAccessToken(id, writeAccess, permanent){
     if(!(await this.validateEntityAccess(id))) return null;
-    return this.global.accessManager.genToken(id, writeAccess === true ? "write" : "read");
+    return this.global.accessManager.genToken(id, writeAccess === true ? "write" : "read", permanent === true ? true : undefined);
   }
 
   folderPath2Id(path){
