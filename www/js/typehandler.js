@@ -59,14 +59,14 @@ class TypeHandler{
     }
   }
 
-  async getShareableLink(item, writeAccess){
+  async getShareableLink(item, writeAccess, permanentAccess){
     let type = this.types[item.properties.type]
     switch(type.open.type){
       case "url":
 
         let accessToken = ""
         if(type.open.includeAccessToken)
-          accessToken = await mscp.getEntityAccessToken(item.id, writeAccess)
+          accessToken = await mscp.getEntityAccessToken(item.id, writeAccess, permanentAccess)
 
         let url = type.open.url
                     .replace("$id$", item.id)
