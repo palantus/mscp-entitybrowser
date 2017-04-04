@@ -26,7 +26,7 @@ class Entity{
       $("#login").addClass("hidden")
       $("#content").removeClass("hidden")
       this.types = await mscp.types()
-      this.addView(getUrlVar("folder") || "/")
+      this.addView(getUrlVar("folder") || null)
     } else {
         $("#login").removeClass("hidden")
         $("#username").val(localStorage.entityUsername || "").focus()
@@ -50,13 +50,13 @@ class Entity{
     $("#loading").addClass("hidden")
   }
 
-  addView(folder){
+  addView(folderId){
     let id = `folderview${this.nextId}`
     this.nextId++
 
     let view = new FolderView(id)
     view.create()
-    view.showFolder(folder)
+    view.showFolder(folderId)
 
     this.views[id] = view
   }
@@ -65,6 +65,7 @@ class Entity{
 class FolderView{
   constructor(elementId){
     this.elementId = elementId
+    this.path = []
   }
 
   create(){
@@ -121,16 +122,17 @@ class FolderView{
     this.propertiesHandler = new PropertiesHandler(this);
   }
 
-  async showFolder(path){
-    let folder = await mscp.folder(path)
+  async showFolder(id){
+    let folder = await mscp.folder(id)
+    this.folder = folder;
     if(folder == null){
       alert("Unknown folder")
       return;
     }
 
-    this.path = folder.path
-    this.element.find(".backbutton").prop("disabled",this.path == "/")
-    this.element.find("span.folderpath").html(folder.path)
+    this.path.push(folder)
+    this.element.find(".backbutton").prop("disabled",this.path.length == 1)
+    this.element.find("span.folderpath").html(this.path.map((p) => p.title).join("/") || "/")
 
     let container = this.element.find(".foldercontent")
     container.empty()
@@ -153,7 +155,7 @@ class FolderView{
       folderItem.click((e) => {
         if(!$(e.target).is(".folderitem"))
           return;
-          
+
         let selected = $(e.currentTarget).is(".selected")
         $(e.currentTarget).parents(".foldercontent").find(".folderitem").removeClass("selected");
         $(e.currentTarget).toggleClass("selected", !selected)
@@ -195,7 +197,7 @@ class FolderView{
         let moveActionHTML = `<span class="itemaction" title="Move">
                                   <img src="/mscp/libs/img/forward.png"/>
                                   <span class="dropdownmenu">
-                                    <input name="dest" placeholder="Destination path" value="${this.path}"/>
+                                    <input name="dest" placeholder="Destination path" value=""/>
                                     <span class="smallbutton ok">Ok</span>
                                     <span class="smallbutton cancel">Cancel</span>
                                   </span>
@@ -250,29 +252,29 @@ class FolderView{
   }
 
   refreshContent(){
-    this.showFolder(this.path)
+    this.showFolder(this.folder.id)
   }
 
   itemClicked(itemElement, e){
     let item = itemElement.data("item")
 
     if(item.properties.type == "folder"){
-      this.showFolder(this.path + item.properties.title)
+      this.showFolder(item.id)
     } else {
       this.typeHandler.openItem(item, e)
     }
   }
 
   back(){
-    let idx = this.path.substring(0, this.path.length - 1).lastIndexOf("/")
-    if(idx < 0)
-      this.showFolder("/")
-    else
-      this.showFolder(this.path.substring(0, idx+1))
+    if(this.path.length <= 1)
+      return;
+
+    this.path.pop()
+    this.showFolder(this.path.pop().id)
   }
 
   async itemDelete(item){
-    await mscp.remove(this.path, item.id)
+    await mscp.remove(this.folder.id, item.id)
     this.refreshContent()
   }
 
@@ -285,8 +287,8 @@ class FolderView{
     return this.typeHandler.getShareableLink(item, writeAccess, permanentAccess)
   }
 
-  async itemMove(item, destPath){
-    await mscp.move(item.id, this.path, destPath)
+  async itemMove(item, destFolderId){
+    await mscp.move(item.id, this.folder.id, destFolderId)
     this.refreshContent()
   }
 }

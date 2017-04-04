@@ -25,19 +25,17 @@ class Handler{
     return this.username ? true : false
   }
 
-  async folder(path){
-    path = this.cleanFolderPath(path)
-    let folderId = this.folderPath2Id(path)
-    if(path == "/"){
-      let folder = {path: "/", title: "root"}
-      folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true))
+  async folder(id){
+    if(!id){
+      let folder = {id: this.rootFolderId(), path: "/"}
+      folder.content = (await this.search(`rel:${folder.id}=entity_infolder`, true))
       return folder
     } else {
-      let folderRes = await this.meta.find(`id:${folderId}`, true)
+      let folderRes = await this.meta.find(`id:${id}`, true)
       if(folderRes.length > 0){
         let folder = this.convertEntityToClient(folderRes[0])
-        folder.path = path
-        folder.content = (await this.search(`rel:${folderId}=entity_infolder`, true))
+        folder.content = (await this.search(`rel:${id}=entity_infolder`, true))
+        folder.title = folder.properties.title
         return folder
       }
       return null
@@ -54,45 +52,44 @@ class Handler{
     return fillMetadata ? entities.map((e) => this.convertEntityToClient(e)) : entities
   }
 
-  async add(path, type, title, uniqueIdentifier, properties){
+  async add(folderId, type, title, uniqueIdentifier, properties){
     if(!title)
       throw "Title not provided"
 
     properties = properties || {}
-    let parentFolderPath = this.folderPath2Id(path)
-    let entityId = null
-    if(type == "folder"){
-      entityId = this.folderPath2Id(`${this.cleanFolderPath(path)}${title}`)
-    } else if(this.global.types[type] !== undefined){
-      entityId = uuid.v4()
+    let entityId = uuid.v4()
+    if(this.global.types[type] !== undefined){
       properties.identifier = uniqueIdentifier
-    } else {
+    } else if(type != "folder"){
       throw "Unknown type: " + type
     }
 
     properties.type = type
     properties.owner = this.username
     properties.title = title
-    await this.meta.addRelation(parentFolderPath, entityId, "entity_folder_contains")
-    await this.meta.addRelation(entityId, parentFolderPath, "entity_infolder")
+    let parentFolderId = folderId || this.rootFolderId()
+    await this.meta.addRelation(parentFolderId, entityId, "entity_folder_contains")
+    await this.meta.addRelation(entityId, parentFolderId, "entity_infolder")
     await this.meta.setProperties(entityId, properties)
     return entityId
   }
 
-  async remove(path, id){
+  async remove(folderId, id){
     if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
-    let folderId = this.folderPath2Id(path)
+    folderId = folderId || this.rootFolderId()
     await this.meta.removeRelation(id, folderId, "entity_infolder")
     await this.meta.removeRelation(folderId, id, "entity_folder_contains")
     return true
   }
 
-  async move(id, fromPath, toPath){
+  async move(id, fromFolderId, toFolderId){
     if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
-    if((await this.search(`id:${id} prop:type=folder`)).length > 0) throw "You cannot move folders"
-    if(fromPath == toPath) return false;
-    let toFolderId = this.folderPath2Id(toPath)
-    await this.remove(fromPath, id)
+    let rootFolderId = this.rootFolderId()
+    fromFolderId = fromFolderId || rootFolderId
+    toFolderId = toFolderId || rootFolderId
+    if(id == rootFolderId) throw "You cannot move the root folder"
+    if(fromFolderId == toFolderId) return false;
+    await this.remove(fromFolderId, id)
     await this.meta.addRelation(toFolderId, id, "entity_folder_contains")
     await this.meta.addRelation(id, toFolderId, "entity_infolder")
     return true
@@ -127,17 +124,18 @@ class Handler{
     return this.global.accessManager.genToken(id, writeAccess === true ? "write" : "read", permanent === true ? true : undefined);
   }
 
-  folderPath2Id(path){
-    path = this.cleanFolderPath(path)
-    return crypto.createHash('sha256').update(`${this.username}:folder:${path.toLowerCase()}`).digest('hex');
+  rootFolderId(){
+    return crypto.createHash('sha256').update(`${this.username}:folder:/`).digest('hex');
   }
 
+  /*
   cleanFolderPath(path){
     let ret = path;
     ret = ret.endsWith("/") ? ret : (ret + "/")
     ret = ret.startsWith("/") ? ret : ("/" + ret);
     return ret;
   }
+  */
 
   convertEntityToClient(e){
     let retEntity = {id: e.id, tags:[], properties: {}}

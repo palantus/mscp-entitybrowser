@@ -1,4 +1,5 @@
-body,html{background-color: #eee; font-family: Roboto,sans-serif; -webkit-font-smoothing: antialiased; margin: 0px;}
+html{background: #ebebeb url('/img/bkg.jpg') left top repeat;}
+body,html{ /*background-color: #eee; */font-family: Roboto,sans-serif; -webkit-font-smoothing: antialiased; margin: 0px;}
 
 #content,#loading,#login{visibility: visible; transition: visibility 0.2s linear, opacity 0.2s linear; }
 
@@ -15,7 +16,7 @@ body,html{background-color: #eee; font-family: Roboto,sans-serif; -webkit-font-s
 
 
 /* Toolbar */
-div.toolbar{background-color: #eee; padding: 5px; /*box-shadow: 0px 5px 14px 0px #888888*/}
+div.toolbar{/*background-color: #eee;*/ padding: 5px; /*box-shadow: 0px 5px 14px 0px #888888*/}
 div.toolbar .toolbarbutton{position: relative;}
 div.toolbar .toolbarbutton .dropdownmenu{display: none;}
 div.toolbar .toolbarbutton.open .dropdownmenu{display: block;}

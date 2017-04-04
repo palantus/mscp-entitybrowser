@@ -8,10 +8,10 @@
       "returntype": "object",
       "args": [
         {
-          "name": "path",
-          "title": "Path",
+          "name": "id",
+          "title": "Id",
           "type": "string",
-          "required": true,
+          "required": false,
           "description": ""
         }
       ],
@@ -55,8 +55,8 @@
       "returntype": "string",
       "args": [
         {
-          "name": "path",
-          "title": "Path",
+          "name": "folderId",
+          "title": "Folder Id",
           "type": "string",
           "required": true,
           "description": ""
@@ -99,8 +99,8 @@
       "returntype": "boolean",
       "args": [
         {
-          "name": "path",
-          "title": "Path",
+          "name": "folderId",
+          "title": "Folder id",
           "type": "string",
           "required": true,
           "description": ""
@@ -275,15 +275,15 @@
           "description": ""
         },
         {
-          "name": "fromPath",
-          "title": "Source path",
+          "name": "fromFolderId",
+          "title": "Source Folder id",
           "type": "string",
           "required": true,
           "description": ""
         },
         {
-          "name": "toPath",
-          "title": "Destination path",
+          "name": "toFolderId",
+          "title": "Destination folder id",
           "type": "string",
           "required": true,
           "description": ""
