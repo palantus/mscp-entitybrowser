@@ -55,7 +55,7 @@ span.backbutton{border: 1px solid black; cursor: pointer; padding: 5px;}
 
 div.folderview > div{position: relative;}
 li.folderitem{ height: 15px; padding: 3px;transition: background 0.2s linear; position: relative; user-select: none; cursor: pointer;}
-li.folderitem:hover, li.folderitem.selected{background-color: #ddd;}
+li.folderitem:hover, li.folderitem.selected{background: rgba(230, 230, 230, 0.5);}
 li.folderitem .itemname{cursor:pointer; margin-right: 5px; /*min-width: 200px;*/ display: inline-block; position: absolute; top: 0px; padding-top: 2px; padding-right: 5px;}
 li.folderitem .itemactions{left: 200px; position: absolute; background-color: inherit; padding-left: 10px; padding-right: 10px;}
 li.folderitem .itemaction{ visibility: hidden;}
