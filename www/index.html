@@ -19,6 +19,7 @@
 	<script src="/js/entitybrowser.js"></script>
 	<script src="/js/typehandler.js"></script>
 	<script src="/js/properties.js"></script>
+	<script src="/js/filepicker.js"></script>
 </head>
 <body>
 <div id="content-wrapper">
@@ -35,6 +36,15 @@
     </div>
   </div>
   <div id="content" class="hidden"></div>
+  <div id="filepicker" class="popup hidden">
+    <div>
+      <h3>Pick one</h3>
+      <button id="filepicker-ok" disabled>Ok</button>
+      <button id="filepicker-up" disabled>Up</button>
+      <span id="filepicker-path"/>
+      <ul id="filepicker-items" class="foldercontent"/>
+    </div>
+  </div>
 </div>
 </body>
 </html>

@@ -27,7 +27,7 @@ class Handler{
 
   async folder(id){
     if(!id){
-      let folder = {id: this.rootFolderId(), path: "/"}
+      let folder = {id: this.rootFolderId(), path: "/", properties: {title: "Root"}}
       folder.content = (await this.search(`rel:${folder.id}=entity_infolder`, true))
       return folder
     } else {
@@ -103,7 +103,7 @@ class Handler{
 
   async setProperty(id, property, value){
     if(!(await this.validateEntityAccess(id))) throw `You do not have access to ${id}`
-    if(property == "title" && (await this.search(`id:${id} prop:type=folder`)).length > 0) throw "You can not change title of folders"
+    //if(property == "title" && (await this.search(`id:${id} prop:type=folder`)).length > 0) throw "You can not change title of folders"
     if(property === "id" || property == "type" || property == "owner" || property == "identifier") throw "Can't edit this property"
     await this.meta.setProperty(id, property, value)
     return await this.search(`id:${id}`, true)

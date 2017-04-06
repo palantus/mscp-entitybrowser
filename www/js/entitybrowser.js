@@ -123,27 +123,32 @@ class FolderView{
   }
 
   async showFolder(id){
-    let folder = await mscp.folder(id)
-    this.folder = folder;
-    if(folder == null){
-      alert("Unknown folder")
-      return;
-    }
 
+    let folder = await mscp.folder(id);
     this.path.push(folder)
     this.element.find(".backbutton").prop("disabled",this.path.length == 1)
     this.element.find("span.folderpath").html(this.path.map((p) => p.title).join("/") || "/")
 
+    await this.refreshContent(folder);
+  }
+
+  async refreshContent(newFolder){
+    if(newFolder)
+      this.folder = newFolder;
+    else
+      this.folder = await mscp.folder(this.folder.id);
+
+    if(this.folder == null){
+      alert("Unknown folder")
+      return;
+    }
+
     let container = this.element.find(".foldercontent")
     container.empty()
 
-    folder.content = folder.content.sort((a, b) => {
-      if(a.properties.type == "folder" && b.properties.type != "folder") return -1
-      else if(a.properties.type != "folder" && b.properties.type == "folder") return 1
-      else return a.properties.title.toLowerCase() > b.properties.title.toLowerCase() ? 1 : -1
-    })
+    FolderView.sortFolder(this.folder)
 
-    for(let e of folder.content){
+    for(let e of this.folder.content){
       let folderItem = $("<li/>", {class: "folderitem"})
 
       let title = e.properties.title || e.id
@@ -178,8 +183,8 @@ class FolderView{
       deleteAction.find(".ok").click((e) => {this.itemDelete($(e.target).parents(".folderitem").data("item")); e.stopPropagation();})
       itemActions.append(deleteAction)
 
-      // RENAME BUTTON
-      if(e.properties.type != "folder"){
+      //if(e.properties.type != "folder"){
+        // RENAME BUTTON
         let editActionHTML = `<span class="itemaction" title="Rename">
                                   <img src="/mscp/libs/img/edit.ico"/>
                                   <span class="dropdownmenu">
@@ -197,16 +202,29 @@ class FolderView{
         let moveActionHTML = `<span class="itemaction" title="Move">
                                   <img src="/mscp/libs/img/forward.png"/>
                                   <span class="dropdownmenu">
-                                    <input name="dest" placeholder="Destination path" value=""/>
+                                    <button class="choosedest">Choose destination</button>
+                                    <div><span>Destination: </span><span class="selecteddest">&lt;none&gt;</span><br/><br/>
                                     <span class="smallbutton ok">Ok</span>
                                     <span class="smallbutton cancel">Cancel</span>
                                   </span>
                                 </<span>`
 
         let moveAction = $(moveActionHTML)
-        moveAction.find(".ok").click((e) => {this.itemMove($(e.target).parents(".folderitem").data("item"), $(e.target).parent().find("input[name=dest]").val()); e.stopPropagation();})
+        moveAction.find(".choosedest").click(async (e) => {
+          try{
+            let dest = await pickFolder(this, this.path);
+            $(e.target).data("entityid", dest.id)
+            $(e.target).parent().find("span.selecteddest").html(dest.properties.title)
+          } catch(err){}
+        })
+
+
+        moveAction.find(".ok").click((e) => {
+          this.itemMove($(e.target).parents(".folderitem").data("item"), $(e.target).parents(".itemaction").find("button.choosedest").data("entityid"));
+          e.stopPropagation();
+        })
         itemActions.append(moveAction)
-      }
+      //}
 
 
       // SHARE BUTTON
@@ -251,8 +269,12 @@ class FolderView{
     container.find(".itemaction .cancel").click((e) => {$(e.target).parents(".itemaction").removeClass("clicked"); e.stopPropagation()})
   }
 
-  refreshContent(){
-    this.showFolder(this.folder.id)
+  static sortFolder(folder){
+    folder.content = folder.content.sort((a, b) => {
+      if(a.properties.type == "folder" && b.properties.type != "folder") return -1
+      else if(a.properties.type != "folder" && b.properties.type == "folder") return 1
+      else return a.properties.title.toLowerCase() > b.properties.title.toLowerCase() ? 1 : -1
+    })
   }
 
   itemClicked(itemElement, e){
