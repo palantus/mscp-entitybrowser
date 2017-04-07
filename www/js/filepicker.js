@@ -17,7 +17,11 @@ class FilePicker{
       $("#filepicker-ok").off("click");
       $("#filepicker-up").off("click");
 
+      $("#filepicker").click((e) => {
+        if($(e.target).is("#filepicker")) this.cancel()
+      })
       $("#filepicker-ok").click(() => this.ok())
+      $("#filepicker-cancel").click(() => this.cancel())
       $("#filepicker-up").click(() => this.up())
 
       $("#filepicker-ok").prop("disabled", !this.allowFolders);
@@ -68,11 +72,11 @@ class FilePicker{
         $(e.currentTarget).parents(".foldercontent").find(".folderitem").removeClass("selected");
         $(e.currentTarget).toggleClass("selected", selected)
 
+        let item = $(e.target).data("item")
         if(item.properties.type == "folder" && this.allowFolders){
           $("#filepicker-ok").prop("disabled", false);
         }
         else if(selected){
-          let item = $(e.target).data("item")
           if(item && (item.properties.type === "folder" && this.allowFolders) || (item.properties.type !== "folder" && this.allowFiles)){
             $("#filepicker-ok").prop("disabled", false);
           } else {
@@ -106,6 +110,10 @@ class FilePicker{
       this.resolve(this.path[this.path.length - 1])
       $("#filepicker").addClass("hidden");
     }
+  }
+
+  cancel(){
+    $("#filepicker").addClass("hidden");
   }
 
   up(){
