@@ -1,0 +1,33 @@
+{
+  "apps": {
+    "ui": {
+      "name": "",
+      "title": "Entity",
+      "items": {
+        "":[
+          "add",
+          "folder",
+          "types",
+          "login",
+          "remove",
+          "search",
+          "setProperty",
+          "tag",
+          "createUser"
+        ],
+        "User management": ["user.login", "user.createUser", "user.isLoggedIn", "user.logout", "user.changePassword"]
+      }
+    },
+    "user": {
+      "title": "User",
+      "items": ["user.login", "user.createUser"]
+    }
+  },
+  "items": {
+    "search": {
+      "drills": [
+        {"path": "$.[?(@.properties.type=folder)]", "type": "click", "funciton": "tag", "args": {"id": "$.id"}}
+      ]
+    }
+  }
+}
